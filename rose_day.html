@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day Surprise</title>
+    <style>
+        :root {
+            --envelope-color: #ff85a1;
+            --envelope-dark: #f07167;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Vibey Gradient Background */
+            background: linear-gradient(-45deg, #ffc8dd, #ffafcc, #bde0fe, #cdb4db);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Hearts Background */
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -10%;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope {
+            position: relative;
+            width: 280px;
+            height: 200px;
+            background: var(--envelope-color);
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            margin: 0 auto;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-top: 110px solid var(--envelope-dark);
+            transition: transform 0.6s ease;
+            transform-origin: top;
+            z-index: 3;
+        }
+
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* The BIG Rose */
+        .rose {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            font-size: 150px; /* Made it much bigger */
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            z-index: 2;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+        }
+
+        .envelope-wrapper.open .rose {
+            transform: translateX(-50%) translateY(-180px) scale(1);
+            opacity: 1;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: translateX(-50%) translateY(-180px) scale(1); }
+            50% { transform: translateX(-50%) translateY(-190px) scale(1.1); }
+        }
+
+        .message-box {
+            position: fixed;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            transition: bottom 0.8s ease;
+            z-index: 10;
+        }
+
+        .message-box.show {
+            bottom: 8%;
+        }
+
+        h1 { color: #ff4d6d; margin: 0 0 15px 0; font-size: 1.8rem; }
+        p { color: var(--text-color); line-height: 1.6; font-size: 1.1rem; font-weight: 500; }
+
+        .click-hint {
+            margin-top: 25px;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts" id="heartContainer"></div>
+
+    <div class="container">
+        <div class="envelope-wrapper" id="envelopeWrapper" onclick="openSurprise()">
+            <div class="rose">🌹</div>
+            <div class="envelope"></div>
+            <p class="click-hint" id="tapText">TAP THE ENVELOPE 💌</p>
+        </div>
+    </div>
+
+    <div class="message-box" id="messageBox">
+        <h1>Happy Rose Day!</h1>
+        <p>Happy Rose Day momo and papa! I wish I was there. I dearly miss you both. Hope you'll enjoy this valentine's week and brace yourselves for cute lil surprises ahead!!</p>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const container = document.getElementById('heartContainer');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        function openSurprise() {
+            const wrapper = document.getElementById('envelopeWrapper');
+            const message = document.getElementById('messageBox');
+            const tapText = document.getElementById('tapText');
+            
+            wrapper.classList.add('open');
+            tapText.style.opacity = '0';
+            
+            setTimeout(() => {
+                message.classList.add('show');
+            }, 800);
+        }
+    </script>
+</body>
+</html>
