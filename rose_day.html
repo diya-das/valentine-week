@@ -71,52 +71,32 @@
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
 
         /* Rose Container */
-        .rose-container {
+        /* The BIG Rose Styling */
+        .rose {
             position: absolute;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 2;
-        }
-
-        .rose-item {
-            transform: scale(0);
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            /* This is the "biggg" part */
+            font-size: 200px; 
             transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
-            text-align: center;
+            z-index: 2;
+            /* Darkens the red to that deep vibe */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)) brightness(0.7);
         }
 
-        .envelope-wrapper.open .rose-item {
-            transform: translateY(-160px) scale(1);
+        .envelope-wrapper.open .rose {
+            /* Moves it higher up so it doesn't overlap the envelope too much */
+            transform: translateX(-50%) translateY(-220px) scale(1);
             opacity: 1;
+            animation: breathe 3s ease-in-out infinite;
         }
 
-        .rose-emoji {
-            font-size: 80px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)) hue-rotate(320deg) brightness(0.5); /* Makes the emoji darker red */
-            animation: sway 3s ease-in-out infinite;
+        @keyframes breathe {
+            0%, 100% { transform: translateX(-50%) translateY(-220px) scale(1); }
+            50% { transform: translateX(-50%) translateY(-235px) scale(1.05); }
         }
-
-        .label {
-            display: block;
-            margin-top: 5px;
-            font-weight: bold;
-            color: #8b0000;
-            background: rgba(255,255,255,0.7);
-            padding: 2px 10px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-        }
-
-        @keyframes sway {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
         .message-box {
             position: fixed;
             bottom: -100%;
