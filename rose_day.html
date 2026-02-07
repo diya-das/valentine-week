@@ -21,7 +21,8 @@
             background: linear-gradient(-45deg, #ffc8dd, #ffafcc, #bde0fe, #cdb4db);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* This brings back the cute, playful vibe */
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
             overflow: hidden;
         }
 
@@ -71,27 +72,48 @@
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
 
         /* Rose Container */
-        /* The BIG Rose Styling */
-        .rose {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            /* This is the "biggg" part */
-            font-size: 200px; 
-            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            z-index: 2;
-            /* Darkens the red to that deep vibe */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)) brightness(0.7);
+        /* Container for the two big roses */
+       .rose-container {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    /* Negative gap pulls them together so they overlap slightly */
+    gap: -40px; 
+    z-index: 2;
+}
+
+.rose-item {
+    transform: scale(0);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    text-align: center;
+    /* This ensures they stay centered even when overlapping */
+    position: relative; 
+}
+
+        /* This makes them pop out and up */
+        .envelope-wrapper.open .rose-item {
+            transform: translateY(-180px) scale(1);
+            opacity: 1;
         }
 
-        .envelope-wrapper.open .rose {
-            /* Moves it higher up so it doesn't overlap the envelope too much */
-            transform: translateX(-50%) translateY(-220px) scale(1);
-            opacity: 1;
-            animation: breathe 3s ease-in-out infinite;
+        .rose-emoji {
+            font-size: 140px; /* Big enough to see both clearly */
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)) brightness(0.7);
+            animation: sway 3s ease-in-out infinite;
         }
+
+        .label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #8b0000;
+    font-size: 1.4rem; /* Slightly bigger font for the names */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
 
         @keyframes breathe {
             0%, 100% { transform: translateX(-50%) translateY(-220px) scale(1); }
@@ -127,16 +149,16 @@
 
     <div class="container">
         <div class="envelope-wrapper" id="envelopeWrapper" onclick="openSurprise()">
-            <div class="rose-container">
-                <div class="rose-item">
-                    <div class="rose-emoji">🌹</div>
-                    <span class="label">Momo</span>
-                </div>
-                <div class="rose-item">
-                    <div class="rose-emoji">🌹</div>
-                    <span class="label">Papa</span>
-                </div>
+                    <div class="rose-container">
+            <div class="rose-item">
+                <div class="rose-emoji">🌹</div>
+                <span class="label">Momo</span>
             </div>
+            <div class="rose-item">
+                <div class="rose-emoji">🌹</div>
+                <span class="label">Papa</span>
+            </div>
+        </div>
             <div class="envelope"></div>
             <p class="hint" id="tapText">TAP TO OPEN 💌</p>
         </div>
