@@ -39,6 +39,10 @@
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
+        @keyframes sway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
 
         .container { text-align: center; position: relative; z-index: 1; }
 
@@ -72,7 +76,6 @@
         .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
 
         /* Rose Container */
-        /* Container for the two big roses */
        .rose-container {
     position: absolute;
     top: 20px;
@@ -80,7 +83,6 @@
     width: 100%;
     display: flex;
     justify-content: center; 
-    /* Negative gap pulls them together so they overlap slightly */
     gap: -40px; 
     z-index: 2;
 }
@@ -119,21 +121,32 @@
             0%, 100% { transform: translateX(-50%) translateY(-220px) scale(1); }
             50% { transform: translateX(-50%) translateY(-235px) scale(1.05); }
         }
+
         .message-box {
-            position: fixed;
-            bottom: -100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
-            transition: bottom 0.8s ease;
-            z-index: 10;
-        }
+    position: fixed; /* Keep this fixed so it slides up correctly */
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    padding-bottom: 40px; /* Add extra padding at the bottom so the message doesn't hit the signature */
+    border-radius: 25px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+    transition: bottom 0.8s ease;
+    z-index: 10;
+}
+
+.signature {
+    position: absolute; /* This will now stay inside the fixed box */
+    bottom: 10px;
+    right: 20px;
+    font-size: 0.9rem;
+    color: #8b0000;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
 
         .message-box.show { bottom: 5%; }
 
@@ -167,6 +180,7 @@
     <div class="message-box" id="messageBox">
         <h1>Happy Rose Day!</h1>
         <p>Happy Rose Day momo and papa! I wish I was there. I dearly miss you both. Hope you'll enjoy this valentine's week and brace yourselves for cute lil surprises this week!!</p>
+        <div class="signature">with love, Diya</div>
     </div>
 
     <script>
