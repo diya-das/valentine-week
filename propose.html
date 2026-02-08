@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propose Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 85%;
+            transform: scale(0.9);
+            animation: popIn 0.8s forwards;
+        }
+
+        @keyframes popIn {
+            to { transform: scale(1); }
+        }
+
+        .ring-icon { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 { color: #ff4d6d; font-size: 1.8rem; }
+        p { color: #4a4a4a; line-height: 1.6; font-weight: bold; }
+
+        .btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: #ff758c; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="ring-icon">💍</div>
+        <h1>Happy Propose Day!</h1>
+        <p>Lol dunno what i should do tday... but here's a ring for the BEST parents ever!!</p>
+        <p><i>Will you accept this ring?</i></p>
+        <button class="btn" onclick="alert('Yay! Best parents ever! ❤️')">YES, ALWAYS!</button>
+    </div>
+</body>
+</html>
