@@ -3,217 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Day Surprise</title>
+    <title>Valentine's Week Special</title>
     <style>
-        :root {
-            --envelope-color: #ff85a1;
-            --envelope-dark: #f07167;
-            --rose-color: #8b0000; /* Dark Red */
-        }
-
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(-45deg, #ffc8dd, #ffafcc, #bde0fe, #cdb4db);
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #a18cd1);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            /* This brings back the cute, playful vibe */
-            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
-            overflow: hidden;
+            animation: gradient 15s ease infinite;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
-        @keyframes gradientBG {
+        @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .hearts { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .heart { position: absolute; bottom: -10%; animation: float 6s linear infinite; opacity: 0.6; }
+        h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); margin-top: 50px; }
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-        @keyframes sway {
-    0%, 100% { transform: rotate(-5deg); }
-    50% { transform: rotate(5deg); }
-}
-
-        .container { text-align: center; position: relative; z-index: 1; }
-
-        .envelope-wrapper { position: relative; cursor: pointer; transition: transform 0.3s ease; }
-
-        .envelope {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background: var(--envelope-color);
-            border-radius: 0 0 15px 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            margin: 0 auto;
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 400px;
+            margin-top: 30px;
         }
 
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 120px solid var(--envelope-dark);
-            transition: transform 0.6s ease;
-            transform-origin: top;
-            z-index: 5;
+        .day-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            color: #ff4d6d;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .envelope-wrapper.open .envelope::before { transform: rotateX(180deg); z-index: 1; }
-
-        /* Rose Container */
-       .rose-container {
-    position: absolute;
-    top: 20px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center; 
-    gap: -40px; 
-    z-index: 2;
-}
-
-.rose-item {
-    transform: scale(0);
-    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0;
-    text-align: center;
-    /* This ensures they stay centered even when overlapping */
-    position: relative; 
-}
-
-        /* This makes them pop out and up */
-        .envelope-wrapper.open .rose-item {
-            transform: translateY(-180px) scale(1);
-            opacity: 1;
-        }
-
-        .rose-emoji {
-            font-size: 140px; /* Big enough to see both clearly */
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)) brightness(0.7);
-            animation: sway 3s ease-in-out infinite;
-        }
-
-        .label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #8b0000;
-    font-size: 1.4rem; /* Slightly bigger font for the names */
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-        @keyframes breathe {
-            0%, 100% { transform: translateX(-50%) translateY(-220px) scale(1); }
-            50% { transform: translateX(-50%) translateY(-235px) scale(1.05); }
-        }
-
-        .message-box {
-    position: fixed; /* Keep this fixed so it slides up correctly */
-    bottom: -100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 85%;
-    max-width: 450px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    padding-bottom: 40px; /* Add extra padding at the bottom so the message doesn't hit the signature */
-    border-radius: 25px;
-    box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
-    transition: bottom 0.8s ease;
-    z-index: 10;
-}
-
-.signature {
-    position: absolute; /* This will now stay inside the fixed box */
-    bottom: 10px;
-    right: 20px;
-    font-size: 0.9rem;
-    color: #8b0000;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-}
-
-        .message-box.show { bottom: 5%; }
-
-        h1 { color: #8b0000; margin-bottom: 10px; }
-        p { color: #444; line-height: 1.5; font-weight: 500; }
-
-        .hint { margin-top: 20px; color: white; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .day-btn:hover { transform: scale(1.05); background: #ff4d6d; color: white; }
     </style>
 </head>
 <body>
-
-    <div class="hearts" id="heartContainer"></div>
-
-    <div class="container">
-        <div class="envelope-wrapper" id="envelopeWrapper" onclick="openSurprise()">
-                    <div class="rose-container">
-            <div class="rose-item">
-                <div class="rose-emoji">🌹</div>
-                <span class="label">Momo</span>
-            </div>
-            <div class="rose-item">
-                <div class="rose-emoji">🌹</div>
-                <span class="label">Papa</span>
-            </div>
-        </div>
-            <div class="envelope"></div>
-            <p class="hint" id="tapText">TAP TO OPEN 💌</p>
-        </div>
+    <h1>Valentine's Week Special!! ✨</h1>
+    <div class="button-grid">
+        <a href="rose.html" class="day-btn">🌹 Rose Day</a>
+        <a href="propose.html" class="day-btn">💍 Propose Day</a>
+        <a href="oops.html" class="day-btn">🍫 Chocolate Day</a>
+        <a href="oops.html" class="day-btn">🧸 Teddy Day</a>
+        <a href="oops.html" class="day-btn">🤝 Promise Day</a>
+        <a href="oops.html" class="day-btn">🫂 Hug Day</a>
+        <a href="oops.html" class="day-btn">💋 Kiss Day</a>
+        <a href="oops.html" class="day-btn">❤️ Valentine's Day</a>
     </div>
-
-    <div class="message-box" id="messageBox">
-        <h1>Happy Rose Day!</h1>
-        <p>Happy Rose Day momo and papa! I wish I was there. I dearly miss you both. Hope you'll enjoy this valentine's week and brace yourselves for cute lil surprises this week!!</p>
-        <div class="signature">with love, Diya</div>
-        <div class="message-box" id="messageBox">
-    <h1>Happy Rose Day!</h1>
-    <p>... (your message) ...</p>
-    
-    <a href="propose.html" style="text-decoration: none;">
-        <button style="background: #8b0000; color: white; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer; margin-top: 10px; font-family: 'Comic Sans MS', cursive;">Next Surprise! ✨</button>
-    </a>
-
-    <div class="signature">with love, Diya</div>
-</div>
-    </div>
-
-    <script>
-        function createHearts() {
-            const container = document.getElementById('heartContainer');
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(heart);
-            }
-        }
-        createHearts();
-
-        function openSurprise() {
-            document.getElementById('envelopeWrapper').classList.add('open');
-            document.getElementById('tapText').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('messageBox').classList.add('show');
-            }, 800);
-        }
-    </script>
 </body>
 </html>
