@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #ffe5d9; 
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .teddy-container {
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* The Teddy Styling */
+        .teddy {
+            font-size: 150px;
+            display: inline-block;
+            cursor: pointer;
+            /* Explicitly set transition for smooth, slow growth */
+            transition: transform 4s ease-in-out, opacity 2s ease-in-out; 
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            z-index: 20;
+            transform: scale(1); /* Starting point for the math */
+            will-change: transform;
+        }
+
+        /* The GIANT Hug expansion */
+        .teddy.hug {
+            transform: scale(15); /* Large enough to fill any screen */
+            opacity: 0.7;
+        }
+
+        /* Gentle pulse animation class */
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 350px;
+            margin-top: 20px;
+            transition: opacity 1s ease;
+        }
+
+        h1 { color: #d4a373; margin-bottom: 10px; }
+        p { color: #6d6875; line-height: 1.6; font-weight: bold; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ff9a9e;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .bg-icon {
+            position: absolute;
+            color: rgba(212, 163, 115, 0.2);
+            font-size: 30px;
+            animation: drift 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes drift {
+            from { transform: translateY(110vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="bgContainer"></div>
+
+    <div class="teddy-container">
+        <div class="teddy pulse-animation" id="mainTeddy" onclick="startHug()">🧸</div>
+        
+        <div class="card" id="messageCard">
+            <h1>Happy Teddy Dayyyyyyy!</h1>
+            <p>Click the teddy for a giant bear hug from me! ❤️</p>
+            <p><i>with love, Diya</i></p>
+            <a href="index.html" class="back-link">← Back to Hub</a>
+        </div>
+    </div>
+
+    <script>
+        function startHug() {
+            const teddy = document.getElementById('mainTeddy');
+            const card = document.getElementById('messageCard');
+            
+            // 1. Stop the pulsing first
+            teddy.classList.remove('pulse-animation');
+            
+            // 2. Tiny delay ensures the browser registers the change from 'pulse' to 'static'
+            // before starting the long 4-second transition to 'hug'
+            setTimeout(() => {
+                teddy.classList.add('hug');
+                card.style.opacity = "0";
+                card.style.pointerEvents = "none";
+            }, 50);
+
+            // 3. Optional alert after the 4s animation finishes
+            setTimeout(() => {
+                alert("HUGGED!❤️");
+            }, 4000);
+        }
+
+        function createBg() {
+            const container = document.getElementById('bgContainer');
+            const icons = ['🐾', '🧸', '☁️', '🤍'];
+            for (let i = 0; i < 15; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'bg-icon';
+                icon.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                icon.style.left = Math.random() * 100 + 'vw';
+                icon.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                icon.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(icon);
+            }
+        }
+        createBg();
+    </script>
+</body>
+</html>
