@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hug Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #fdf0d5;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
+        .hug-container {
+            text-align: center;
+            position: relative;
+        }
+        .heart {
+            font-size: 80px;
+            display: inline-block;
+            position: relative;
+            animation: hugMove 2s ease-in-out infinite;
+        }
+        .heart-left { animation-name: hugLeft; }
+        .heart-right { animation-name: hugRight; }
+
+        @keyframes hugLeft {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+        }
+        @keyframes hugRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-30px); }
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 380px;
+            margin-top: 20px;
+        }
+        h1 { color: #ae2012; }
+        p { color: #333; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="hug-container">
+        <div class="heart heart-left">❤️</div>
+        <div class="heart heart-right">❤️</div>
+        <div class="card">
+            <h1>Happy Hug Day!</h1>
+            <p>Sending the warmest, tightest virtual hug to my favorite people! I wish I could give you both a real hug today at home. ❤️</p>
+            <p><i>- Diya</i></p>
+            <a href="index.html" style="color: #ae2012; text-decoration: none; font-weight: bold;">← Back</a>
+        </div>
+    </div>
+</body>
+</html>
