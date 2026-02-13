@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiss Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #fff0f3; /* Light romantic pink */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        .kiss-card {
+            background: white;
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            z-index: 10;
+            border: 2px solid #ff4d6d;
+        }
+
+        .main-emoji {
+            font-size: 100px;
+            display: inline-block;
+            animation: blowKiss 2s infinite;
+        }
+
+        @keyframes blowKiss {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+
+        h1 { color: #ff4d6d; margin-bottom: 10px; }
+        p { color: #555; line-height: 1.6; font-weight: bold; }
+
+        /* Floating Kisses Background */
+        .floating-kiss {
+            position: absolute;
+            bottom: -10%;
+            font-size: 25px;
+            animation: floatUp 5s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff4d6d;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="kissContainer"></div>
+
+    <div class="kiss-card">
+        <div class="main-emoji">😘</div>
+        <h1>Happy Kiss Day!</h1>
+        <p>Sending a million virtual kisses to youuu</p>
+        <p><i>- with love, Diya</i></p>
+        <a href="index.html" class="back-link">← Back</a>
+    </div>
+
+    <script>
+        function createKisses() {
+            const container = document.getElementById('kissContainer');
+            const icons = ['💋', '❤️', '🌸', '✨'];
+            for (let i = 0; i < 15; i++) {
+                const kiss = document.createElement('div');
+                kiss.className = 'floating-kiss';
+                kiss.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                kiss.style.left = Math.random() * 100 + 'vw';
+                kiss.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                kiss.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(kiss);
+            }
+        }
+        createKisses();
+    </script>
+</body>
+</html>
